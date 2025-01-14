@@ -6,10 +6,12 @@ import lombok.Data;
 public class Category {
 
     private int categoryId;
+    private int userId;
     private String categoryName;
 
-    public Category(int categoryId, String categoryName) {
+    public Category(int categoryId, int userId, String categoryName) {
         this.categoryId = categoryId;
+        this.userId = userId;
         if (Objects.isNull(categoryName)) {
             throw new IllegalArgumentException("カテゴリー名は必須です。");
         }

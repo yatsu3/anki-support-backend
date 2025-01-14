@@ -14,7 +14,7 @@ public interface CategoryMapper {
     int getNextId();
     
     @Insert("""
-    INSERT INTO CATEGORIES (CATEGORY_ID, CATEGORY_NAME, CREATED_DATETIME, UPDATED_DATETIME) VALUES (#{category.categoryId}, #{category.categoryName}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+    INSERT INTO CATEGORIES (CATEGORY_ID, USER_ID, CATEGORY_NAME, CREATED_DATETIME, UPDATED_DATETIME) VALUES (#{category.categoryId}, #{category.userId}, #{category.categoryName}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
     )
     """)
     void insertCategory(@Param("category") Category category);

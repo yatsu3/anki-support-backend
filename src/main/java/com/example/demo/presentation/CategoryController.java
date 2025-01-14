@@ -13,8 +13,9 @@ public class CategoryController {
     @PostMapping(value="/add-category")
     public void addCategory(@RequestBody Map<String, Object> requestBody) {
         String categoryName = (String)requestBody.get("title");
+        int userId = (int)requestBody.get("userId");
 
         
-        service.registerCategory(categoryName);
+        service.registerCategory(categoryName, userId); 
     }
 }

@@ -9,10 +9,10 @@ public class CategoryService {
     @Autowired
     CategoryRepository repository;
     
-    public void registerCategory(String categoryName) {
+    public void registerCategory(String categoryName, int userId) {
 
         int id = repository.getNextId();
-        Category category = new Category(id, categoryName);
+        Category category = new Category(id, userId, categoryName);
 
         repository.registerCategory(category);
 
