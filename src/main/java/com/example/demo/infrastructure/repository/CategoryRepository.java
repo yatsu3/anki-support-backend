@@ -13,6 +13,10 @@ public class CategoryRepository {
         return mapper.getNextId() + 1;
     }
 
+    public int getIdByCategoryName(String name) {
+        return mapper.getIdByCategoryName(name);
+    }
+
     public void registerCategory(Category category) {
         mapper.insertCategory(category);
     }
