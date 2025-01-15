@@ -20,7 +20,7 @@ public class QuestionController {
         String question = (String) requestBody.get("question");
 
         // answers を List<String> として取得
-        List<String> choices = (List<String>) requestBody.get("choices");
+        List<String> choices = (List<String>) requestBody.get("choicesData");
 
         // correctAnswerId を Integer にキャスト
         int correctedAnswer = (int) ((Number) requestBody.get("correctAnswerId")).intValue();
