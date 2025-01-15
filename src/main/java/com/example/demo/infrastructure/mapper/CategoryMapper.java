@@ -1,5 +1,7 @@
 package com.example.demo.infrastructure.mapper;
 import com.example.demo.domain.entity.Category;
+import com.example.demo.infrastructure.dto.CategoryDto;
+import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +25,22 @@ public interface CategoryMapper {
     )
     """)
     void insertCategory(@Param("category") Category category);
+
+    @Select("""
+    SELECT 
+    c.CATEGORY_ID,
+    c.CATEGORY_NAME, 
+    COUNT(q.QUESTION_ID)
+    FROM 
+        CATEGORIES c
+    LEFT JOIN 
+        QUESTIONS q
+    ON 
+        c.CATEGORY_ID = q.CATEGORY_ID
+    WHERE 
+        c.USER_ID = #{userId}
+    GROUP BY 
+        c.CATEGORY_ID;
+    """)
+    List<CategoryDto> getCategory(@Param("userId")int userId);
 }
