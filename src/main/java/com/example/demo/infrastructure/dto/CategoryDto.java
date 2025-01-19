@@ -12,4 +12,12 @@ public class CategoryDto {
         this.questionCount = questionCount;
     }
 
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
+    public String getCategoryName() {
+        return this.categoryName;
+    }
+
 }

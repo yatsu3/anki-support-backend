@@ -17,4 +17,16 @@ public class Category {
         }
         this.categoryName = categoryName;
     }
+
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
+    public int getUserId() {
+        return this.userId;
+    }
+
+    public String getCategoryName() {
+        return this.categoryName;
+    }
 }
