@@ -1,5 +1,7 @@
 package com.example.demo.infrastructure.mapper;
 import com.example.demo.domain.entity.Question;
+import com.example.demo.infrastructure.dto.QuestionDto;
+import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,4 +20,20 @@ public interface QuestionMapper {
     )
     """)
     void insertQuestion(@Param("question") Question question);
+
+    @Select("""
+    SELECT q.QUESTION_ID, q.QUESTION_CONTENT, choices.CHOICE_CONTENT,
+    q.CORRECTED_ANSWER, q.EXPLANATION
+    FROM 
+        QUESTIONS q
+    LEFT JOIN 
+        CHOICES choices
+    ON 
+        q.QUESTION_ID = choices.QUESTION_ID
+    WHERE 
+        q.USER_ID = #{userId} AND q.CATEGORY_ID = #{categoryId}
+    GROUP BY 
+        q.QUESTION_ID, choices.CHOICE_CONTENT, q.CORRECTED_ANSWER, q.EXPLANATION;
+    """)
+    List<QuestionDto> getQuestion(@Param("userId") int userId, @Param("categoryId") int cagegoryId);
 }
