@@ -49,25 +49,25 @@ class CategoryServiceTest {
         assertEquals("Test Category", capturedCategory.getCategoryName()); // カテゴリ名が正しく設定されたか
     }
 
-    // @Test
-    // void カテゴリー情報が取得できること() {
-    //     // モックの動作を定義
-    //     List<CategoryDto> mockCategories = Arrays.asList(
-    //         new CategoryDto(1, "Category 1", 1),
-    //         new CategoryDto(2, "Category 2", 1)
-    //     );
-    //     when(categoryRepository.getCategory(100)).thenReturn(mockCategories);
+    @Test
+    void カテゴリー情報が取得できること() {
+        // モックの動作を定義
+        List<CategoryDto> mockCategories = Arrays.asList(
+            new CategoryDto(1, "Category 1", 1),
+            new CategoryDto(2, "Category 2", 1)
+        );
+        when(categoryRepository.getCategory(100)).thenReturn(mockCategories);
 
-    //     // メソッドを実行
-    //     List<CategoryDto> result = categoryService.getCategory(100);
+        // メソッドを実行
+        List<CategoryDto> result = categoryService.getCategory(100);
 
-    //     // 取得データが期待通りか検証
-    //     assertNotNull(result);
-    //     assertEquals(2, result.size());
-    //     assertEquals("Category 1", result.get(0).getCategoryName());
-    //     assertEquals("Category 2", result.get(1).getCategoryName());
+        // 取得データが期待通りか検証
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("Category 1", result.get(0).getCategoryName());
+        assertEquals("Category 2", result.get(1).getCategoryName());
 
-    //     // メソッドが呼ばれていることの確認
-    //     verify(categoryRepository, times(1)).getCategory(100);
-    // }
+        // メソッドが呼ばれていることの確認
+        verify(categoryRepository, times(1)).getCategory(100);
+    }
 }
