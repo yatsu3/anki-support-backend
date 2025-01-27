@@ -15,16 +15,14 @@ public class CategoryController {
     CategoryService service;
 
     @PostMapping(value="/add-category")
-    public void addCategory(@RequestBody Map<String, Object> requestBody) {
-        String categoryName = (String)requestBody.get("categoryName");
-        int userId = (int)requestBody.get("userId");
+    public void addCategory(@RequestBody CategoryRequest request) {
 
-        
-        service.registerCategory(categoryName, userId); 
+        service.registerCategory(request); 
     }
 
     @GetMapping("/get-category")
     public List<CategoryDto> getCategory(@RequestParam int userId) {
+        System.out.println("category:"+ userId);
         return service.getCategory(userId);
     }
 }
