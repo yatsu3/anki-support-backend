@@ -3,6 +3,7 @@ package com.example.demo.domain.service;
 import com.example.demo.domain.entity.Category;
 import com.example.demo.infrastructure.dto.CategoryDto;
 import com.example.demo.infrastructure.repository.CategoryRepository;
+import com.example.demo.presentation.CategoryRequest;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,10 +32,12 @@ class CategoryServiceTest {
     @Test
     void testRegisterCategory() {
         // モックの動作を定義
-        when(categoryRepository.getNextId()).thenReturn(1);
+        when(categoryRepository.getNextId(1)).thenReturn(1);
+
+        CategoryRequest request = new CategoryRequest("Test Category", 1);
 
         // メソッドを実行
-        categoryService.registerCategory("Test Category", 100);
+        categoryService.registerCategory(request);
 
         // 引数キャプチャを使って、Category オブジェクトが正しく作成されるか検証
         ArgumentCaptor<Category> categoryCaptor = ArgumentCaptor.forClass(Category.class);
@@ -42,7 +45,7 @@ class CategoryServiceTest {
 
         Category capturedCategory = categoryCaptor.getValue();
         assertEquals(1, capturedCategory.getCategoryId()); // ID が正しく設定されたか
-        assertEquals(100, capturedCategory.getUserId()); // ユーザーIDが正しく設定されたか
+        assertEquals(1, capturedCategory.getUserId()); // ユーザーIDが正しく設定されたか
         assertEquals("Test Category", capturedCategory.getCategoryName()); // カテゴリ名が正しく設定されたか
     }
 

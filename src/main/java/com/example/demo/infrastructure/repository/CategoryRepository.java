@@ -11,8 +11,8 @@ public class CategoryRepository {
     @Autowired
     CategoryMapper mapper;
 
-    public int getNextId() {
-        return mapper.getNextId() + 1;
+    public int getNextId(int userId) {
+        return mapper.getNextId(userId) + 1;
     }
 
     public int getIdByCategoryName(String name) {

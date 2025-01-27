@@ -11,9 +11,9 @@ import org.apache.ibatis.annotations.Select;
 public interface CategoryMapper {
 
     @Select("""
-    SELECT COALESCE(MAX(CATEGORY_ID), 0) FROM CATEGORIES
+    SELECT COALESCE(MAX(CATEGORY_ID), 0) FROM CATEGORIES WHERE USER_ID = #{userId}
     """)
-    int getNextId();
+    int getNextId(int userId);
 
     @Select("""
     SELECT CATEGORY_ID FROM CATEGORIES WHERE CATEGORY_NAME = #{categoryName}
