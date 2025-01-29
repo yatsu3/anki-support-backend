@@ -1,5 +1,7 @@
 package com.example.demo.infrastructure.repository;
 import com.example.demo.domain.entity.Question;
+import com.example.demo.infrastructure.dto.GroupedQuestionDto;
+import com.example.demo.infrastructure.dto.GroupedQuestionDto;
 import com.example.demo.infrastructure.dto.QuestionDto;
 import com.example.demo.infrastructure.mapper.QuestionMapper;
 import java.util.List;
@@ -19,8 +21,12 @@ public class QuestionRepository {
         mapper.insertQuestion(question);
     }
 
-    public List<QuestionDto> getQuestion(int userId, int categoryId) {
+    public List<GroupedQuestionDto> getQuestion(int userId, int categoryId) {
         return mapper.getQuestion(userId, categoryId);
+    }
+
+    public List<QuestionDto> getQuestionList(int userId, int categoryId) {
+        return mapper.getQuestionList(userId, categoryId);
     }
 
 }

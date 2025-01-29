@@ -1,6 +1,7 @@
 package com.example.demo.domain.service;
 import com.example.demo.domain.entity.GroupedQuestion;
 import com.example.demo.domain.entity.Question;
+import com.example.demo.infrastructure.dto.GroupedQuestionDto;
 import com.example.demo.infrastructure.dto.QuestionDto;
 import com.example.demo.infrastructure.repository.AnswerRepository;
 import com.example.demo.infrastructure.repository.CategoryRepository;
@@ -42,23 +43,23 @@ public class QuestionService {
     }
 
     public List<GroupedQuestion> getQuestion(int userId, int categoryId) {
-        List<QuestionDto> list = questionRepository.getQuestion(userId, categoryId);
+        List<GroupedQuestionDto> list = questionRepository.getQuestion(userId, categoryId);
         
         List<GroupedQuestion> aaa = converter(list);
         
         return aaa;
     }
 
-    private List<GroupedQuestion> converter(List<QuestionDto> list) {
+    private List<GroupedQuestion> converter(List<GroupedQuestionDto> list) {
         return list.stream()
             .collect(Collectors.groupingBy(
-                QuestionDto::getQuestionId, // キーとなる questionId
+                GroupedQuestionDto::getQuestionId, // キーとなる questionId
                 LinkedHashMap::new, // 順番を保持するため LinkedHashMap を使用（任意）
                 Collectors.collectingAndThen(Collectors.toList(), questionList -> 
                     new GroupedQuestion(
                         questionList.get(0).getQuestionId(),
                         questionList.get(0).getQuestionContent(),
-                        questionList.stream().map(QuestionDto::getChoiceContent).collect(Collectors.toList()),
+                        questionList.stream().map(GroupedQuestionDto::getChoiceContent).collect(Collectors.toList()),
                         questionList.get(0).getCorrectedAnswer(),
                         questionList.get(0).getExplanation()
                     )
@@ -67,5 +68,9 @@ public class QuestionService {
             .values()
             .stream()
             .collect(Collectors.toList());
+    }
+
+    public List<QuestionDto> getQuestionList(int userId, int questionId) {
+        return questionRepository.getQuestionList(userId, questionId);
     }
 }

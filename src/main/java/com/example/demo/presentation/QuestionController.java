@@ -1,6 +1,7 @@
 package com.example.demo.presentation;
 import com.example.demo.domain.entity.GroupedQuestion;
 import com.example.demo.domain.service.QuestionService;
+import com.example.demo.infrastructure.dto.QuestionDto;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,12 @@ public class QuestionController {
     @GetMapping(value = "/get-questions")
     public List<GroupedQuestion> getQuestion(@RequestParam int userId, @RequestParam int categoryId) {
         return questionService.getQuestion(userId, categoryId);
+        
+    }
+
+    @GetMapping(value = "/question-list")
+    public List<QuestionDto> getQuestionList(@RequestParam int userId, @RequestParam int categoryId) {
+        return questionService.getQuestionList(userId, categoryId);
         
     }
 }
