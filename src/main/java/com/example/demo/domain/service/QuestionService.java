@@ -2,8 +2,10 @@ package com.example.demo.domain.service;
 import com.example.demo.domain.entity.GroupedQuestion;
 import com.example.demo.domain.entity.Question;
 import com.example.demo.infrastructure.dto.QuestionDto;
+import com.example.demo.infrastructure.repository.AnswerRepository;
 import com.example.demo.infrastructure.repository.CategoryRepository;
 import com.example.demo.infrastructure.repository.QuestionRepository;
+import com.example.demo.presentation.QuestionRequest;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,19 +18,26 @@ public class QuestionService {
     QuestionRepository questionRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    AnswerRepository answerRepository;
 
     @Autowired
     ChoiceService choiceService;
+
+    @Autowired
+    AnswerService answerService;
     
-    public void registerQuestion(String categoryName, int userId, String questionContent, List<String> choices, int correctedAnswer, String explanation) {
+    public void registerQuestion(QuestionRequest request) {
 
         int questionId = questionRepository.getNextId();
-        int categoryId = categoryRepository.getIdByCategoryName(categoryName);
-        Question question = new Question(questionId, userId, categoryId, questionContent, explanation, correctedAnswer);
+        int categoryId = categoryRepository.getIdByCategoryName(request.getCategoryName());
+        int answerId = answerRepository.getNextId();
 
+        Question question = new Question(questionId, request.getUserId(), categoryId, answerId, request.getQuestionContent(), request.getExplanation());
         questionRepository.registerQuestion(question);
-        
-        choiceService.registerChoice(choices, questionId);
+
+        choiceService.registerChoice(request.getChoicesData(), questionId);
+        answerService.registerAnswer(answerId, questionId, request.getAnswer());
 
     }
 

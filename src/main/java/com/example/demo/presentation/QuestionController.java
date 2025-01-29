@@ -15,22 +15,9 @@ public class QuestionController {
     QuestionService questionService;
 
     @PostMapping(value = "/add-question")
-    public void addQuestion(@RequestBody Map<String, Object> requestBody) {
+    public void addQuestion(@RequestBody QuestionRequest request) {
 
-        // 値の取得と型キャスト
-        String categoryName = (String) requestBody.get("category");
-        int userId = (int) requestBody.get("userId");
-        String question = (String) requestBody.get("question");
-
-        // answers を List<String> として取得
-        List<String> choices = (List<String>) requestBody.get("choicesData");
-
-        // correctAnswerId を Integer にキャスト
-        int correctedAnswer = (int) ((Number) requestBody.get("correctAnswerId")).intValue();
-
-        String explanation = (String) requestBody.get("explanation");
-
-        questionService.registerQuestion(categoryName, userId, question, choices, correctedAnswer, explanation);
+        questionService.registerQuestion(request);
     }
 
     @GetMapping(value = "/get-questions")
