@@ -1,6 +1,7 @@
 package com.example.demo.domain.service;
 import com.example.demo.domain.entity.Category;
 import com.example.demo.infrastructure.dto.CategoryDto;
+import com.example.demo.infrastructure.dto.CategoryInfoDto;
 import com.example.demo.infrastructure.repository.CategoryRepository;
 import com.example.demo.presentation.CategoryRequest;
 import java.util.List;
@@ -23,5 +24,9 @@ public class CategoryService {
 
     public List<CategoryDto> getCategory(int userId) {
         return repository.getCategory(userId);
-     }
+    }
+
+    public CategoryInfoDto findCategoryById(int questionId) {
+        return repository.findCategoryById(questionId);
+    }
 }

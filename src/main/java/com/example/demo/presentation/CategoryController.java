@@ -22,7 +22,6 @@ public class CategoryController {
 
     @GetMapping("/get-category")
     public List<CategoryDto> getCategory(@RequestParam int userId) {
-        System.out.println("category:"+ userId);
         return service.getCategory(userId);
     }
 }

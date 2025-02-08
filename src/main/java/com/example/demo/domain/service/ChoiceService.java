@@ -1,5 +1,8 @@
 package com.example.demo.domain.service;
 import com.example.demo.domain.entity.Choice;
+import com.example.demo.infrastructure.dto.ChoiceDto;
+import com.example.demo.infrastructure.dto.ChoiceDto;
+import com.example.demo.infrastructure.dto.ChoiceDto;
 import com.example.demo.infrastructure.repository.ChoiceRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,4 +22,20 @@ public class ChoiceService {
         }
 
     }
+
+    public List<ChoiceDto> searchChoicesByQuestionId(int questionId) {
+        return choiceRepository.searchChoicesByQuestionId(questionId);
+    }
+
+    public void updateChoice(ChoiceDto choiceDto, int questionId) {
+
+        choiceRepository.updateChoice(choiceDto, questionId);
+    }
+
+    public void deleteChoice(int choiceId) {
+        choiceRepository.deleteChoice(choiceId);
+    }
+
+
+
 }
