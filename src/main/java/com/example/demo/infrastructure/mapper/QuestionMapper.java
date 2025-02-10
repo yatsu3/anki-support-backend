@@ -39,7 +39,7 @@ public interface QuestionMapper {
     WHERE 
         q.USER_ID = #{userId} AND q.CATEGORY_ID = #{categoryId}
     GROUP BY 
-        q.QUESTION_ID, choices.CHOICE_CONTENT, a.ANSWER_CONTENT,q.EXPLANATION;
+        q.QUESTION_ID, choices.CHOICE_ID, a.ANSWER_CONTENT,q.EXPLANATION;
     """)
     List<GroupedQuestionDto> getQuestion(@Param("userId") int userId, @Param("categoryId") int cagegoryId);
 
