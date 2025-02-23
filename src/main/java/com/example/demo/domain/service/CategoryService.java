@@ -12,6 +12,9 @@ public class CategoryService {
 
     @Autowired
     CategoryRepository repository;
+
+    @Autowired
+    UserService userService;
     
     public void registerCategory(CategoryRequest request) {
 
@@ -22,7 +25,9 @@ public class CategoryService {
 
     }
 
-    public List<CategoryDto> getCategory(int userId) {
+    public List<CategoryDto> getCategory(String uuid) {
+        // uuidからuserIdを取得
+        int userId = userService.getUserIdByUuid(uuid);
         return repository.getCategory(userId);
     }
 

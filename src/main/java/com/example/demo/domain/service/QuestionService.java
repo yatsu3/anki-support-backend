@@ -39,6 +39,8 @@ public class QuestionService {
     AnswerService answerService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    UserService userService;
     
     public void registerQuestion(QuestionRequest request) {
 
@@ -54,7 +56,8 @@ public class QuestionService {
 
     }
 
-    public List<GroupedQuestion> getQuestion(int userId, int categoryId) {
+    public List<GroupedQuestion> getQuestion(String uuid, int categoryId) {
+        int userId = userService.getUserIdByUuid(uuid);
         List<GroupedQuestionDto> list = questionRepository.getQuestion(userId, categoryId);
         
         List<GroupedQuestion> aaa = converter(list);
@@ -82,13 +85,17 @@ public class QuestionService {
             .collect(Collectors.toList());
     }
 
-    public List<QuestionDto> getQuestionList(int userId, int questionId) {
+    public List<QuestionDto> getQuestionList(String uuid, int questionId) {
+        int userId = userService.getUserIdByUuid(uuid);
         return questionRepository.getQuestionList(userId, questionId);
     }
 
-    public QuestionResponse getQuestionById(int questionId, int userId) {
+    public QuestionResponse getQuestionById(int questionId, String uuid) {
         // カテゴリー情報を取得
         CategoryInfoDto category = categoryService.findCategoryById(questionId);
+
+        // ユーザー情報を取得
+        int userId = userService.getUserIdByUuid(uuid);
 
         // 問題情報を取得
         QuestionInfoDto question = questionRepository.findQuestionById(questionId, userId);
@@ -104,11 +111,13 @@ public class QuestionService {
 
     public void updateQuestion(UpdateQuestionRequest request) {
 
-        int categoryId = categoryRepository.getIdByCategoryName(request.getCategoryName(), request.getUserId());
+        int userId = userService.getUserIdByUuid(request.getUuid());
+
+        int categoryId = categoryRepository.getIdByCategoryName(request.getCategoryName(), userId);
 
 
         // 問題文と解説文が変更されている場合、更新
-        QuestionInfoDto questionInfo = questionRepository.findQuestionById(request.getQuestionId(), request.getUserId());
+        QuestionInfoDto questionInfo = questionRepository.findQuestionById(request.getQuestionId(), userId);
         if (questionInfo.getQuestionContent() != request.getExplanation()) {
             questionRepository.updateQuestionInfo(request.getQuestionId(), request.getQuestionContent(), request.getExplanation());
         }

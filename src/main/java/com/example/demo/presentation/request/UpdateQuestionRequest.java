@@ -8,16 +8,16 @@ public class UpdateQuestionRequest {
 
     private int questionId;
     private String categoryName;
-    private int userId;
+    private String uuid;
     private String questionContent;
     private List<ChoiceDto> choicesData;
     private int correctAnswer;
     private String explanation;
 
-    public UpdateQuestionRequest(int questionId,String categoryName, int userId, String questionContent, List<ChoiceDto> choicesData, int correctAnswer, String explanation) {
+    public UpdateQuestionRequest(int questionId,String categoryName, String uuid, String questionContent, List<ChoiceDto> choicesData, int correctAnswer, String explanation) {
         this.questionId = questionId;
         this.categoryName = categoryName;
-        this.userId = userId;
+        this.uuid = uuid;
         this.questionContent = questionContent;
         this.choicesData = choicesData;
         this.correctAnswer = correctAnswer;
@@ -32,8 +32,8 @@ public class UpdateQuestionRequest {
         return this.categoryName;
     }
 
-    public int getUserId() {
-        return this.userId;
+    public String getUuid() {
+        return this.uuid;
     }
 
     public String getQuestionContent() {

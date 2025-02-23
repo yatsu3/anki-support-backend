@@ -21,7 +21,7 @@ public class CategoryController {
     }
 
     @GetMapping("/get-category")
-    public List<CategoryDto> getCategory(@RequestParam int userId) {
-        return service.getCategory(userId);
+    public List<CategoryDto> getCategory(@RequestParam String uuid) {
+        return service.getCategory(uuid);
     }
 }
