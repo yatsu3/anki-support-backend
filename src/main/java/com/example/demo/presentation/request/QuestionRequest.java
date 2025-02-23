@@ -6,15 +6,15 @@ import lombok.Data;
 public class QuestionRequest {
 
     private String categoryName;
-    private int userId;
+    private String uuid;
     private String questionContent;
     private List<String> choicesData;
     private int correctAnswer;
     private String explanation;
 
-    public QuestionRequest(String categoryName, int userId, String questionContent, List<String> choicesData, int correctAnswer, String explanation) {
+    public QuestionRequest(String categoryName, String uuid, String questionContent, List<String> choicesData, int correctAnswer, String explanation) {
         this.categoryName = categoryName;
-        this.userId = userId;
+        this.uuid = uuid;
         this.questionContent = questionContent;
         this.choicesData = choicesData;
         this.correctAnswer = correctAnswer;
@@ -25,8 +25,8 @@ public class QuestionRequest {
         return this.categoryName;
     }
 
-    public int getUserId() {
-        return this.userId;
+    public String getUuid() {
+        return this.uuid;
     }
 
     public String getQuestionContent() {

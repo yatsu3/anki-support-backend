@@ -26,20 +26,20 @@ public class QuestionController {
     }
 
     @GetMapping(value = "/get-questions")
-    public List<GroupedQuestion> getQuestion(@RequestParam int userId, @RequestParam int categoryId) {
-        return questionService.getQuestion(userId, categoryId);
+    public List<GroupedQuestion> getQuestion(@RequestParam String uuid, @RequestParam int categoryId) {
+        return questionService.getQuestion(uuid, categoryId);
         
     }
 
     @GetMapping(value = "/question-list")
-    public List<QuestionDto> getQuestionList(@RequestParam int userId, @RequestParam int categoryId) {
-        return questionService.getQuestionList(userId, categoryId);
+    public List<QuestionDto> getQuestionList(@RequestParam String uuid, @RequestParam int categoryId) {
+        return questionService.getQuestionList(uuid, categoryId);
         
     }
 
     @GetMapping("/questions/{questionId}")
-    public ResponseEntity<QuestionResponse> getQuestionInfo(@RequestHeader("userId") int userId, @PathVariable int questionId) {
-        QuestionResponse response = questionService.getQuestionById(questionId, userId);
+    public ResponseEntity<QuestionResponse> getQuestionInfo(@RequestHeader("uuid") String uuid, @PathVariable int questionId) {
+        QuestionResponse response = questionService.getQuestionById(questionId, uuid);
         return ResponseEntity.ok(response);
     }
 

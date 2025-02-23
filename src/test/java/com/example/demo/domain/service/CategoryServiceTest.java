@@ -21,6 +21,9 @@ class CategoryServiceTest {
     @Mock
     private CategoryRepository categoryRepository; // リポジトリをモック化
 
+    @Mock
+    private UserService userService; // UserServiceをモック化
+
     @InjectMocks
     private CategoryService categoryService; // テスト対象のサービス
 
@@ -58,8 +61,10 @@ class CategoryServiceTest {
         );
         when(categoryRepository.getCategory(100)).thenReturn(mockCategories);
 
+        when(userService.getUserIdByUuid("100")).thenReturn(100);
+
         // メソッドを実行
-        List<CategoryDto> result = categoryService.getCategory(100);
+        List<CategoryDto> result = categoryService.getCategory("100");
 
         // 取得データが期待通りか検証
         assertNotNull(result);
