@@ -9,9 +9,11 @@ public class CorsConfig {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
+        System.out.println("corsConfigurer!!!!");
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
+                System.out.println("addCorsMappings!!!!");
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:3000") // フロントエンドのオリジンを指定
                         .allowedMethods("GET", "POST", "PUT", "DELETE")

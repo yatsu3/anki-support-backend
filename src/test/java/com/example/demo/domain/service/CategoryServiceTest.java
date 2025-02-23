@@ -36,8 +36,9 @@ class CategoryServiceTest {
     void testRegisterCategory() {
         // モックの動作を定義
         when(categoryRepository.getNextId(1)).thenReturn(1);
+        when(userService.getUserIdByUuid("1")).thenReturn(1);
 
-        CategoryRequest request = new CategoryRequest("Test Category", 1);
+        CategoryRequest request = new CategoryRequest("Test Category", "1");
 
         // メソッドを実行
         categoryService.registerCategory(request);

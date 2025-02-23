@@ -6,19 +6,19 @@ public class CategoryRequest {
     
     private String categoryName;
 
-    private int userId;
+    private String uuid;
 
-    public CategoryRequest(String categoryName, int userId) {
+    public CategoryRequest(String categoryName, String uuid) {
         this.categoryName = categoryName;
-        this.userId = userId;
+        this.uuid = uuid;
     }
 
     public String getCategoryName() {
         return this.categoryName;
     }
 
-    public int getUserId() {
-        return this.userId;
+    public String getUuId() {
+        return this.uuid;
     }
 
 
