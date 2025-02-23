@@ -17,9 +17,9 @@ public class CategoryService {
     UserService userService;
     
     public void registerCategory(CategoryRequest request) {
-
-        int id = repository.getNextId(request.getUserId());
-        Category category = new Category(id, request.getUserId(), request.getCategoryName());
+        int userId = userService.getUserIdByUuid(request.getUuId());
+        int id = repository.getNextId(userId);
+        Category category = new Category(id, userId, request.getCategoryName());
 
         repository.registerCategory(category);
 
