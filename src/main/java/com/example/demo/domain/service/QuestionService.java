@@ -44,11 +44,12 @@ public class QuestionService {
     
     public void registerQuestion(QuestionRequest request) {
 
+        int userId = userService.getUserIdByUuid(request.getUuid());
         int questionId = questionRepository.getNextId();
-        int categoryId = categoryRepository.getIdByCategoryName(request.getCategoryName(), request.getUserId());
+        int categoryId = categoryRepository.getIdByCategoryName(request.getCategoryName(), userId);
         int answerId = answerRepository.getNextId();
 
-        Question question = new Question(questionId, request.getUserId(), categoryId, answerId, request.getQuestionContent(), request.getExplanation());
+        Question question = new Question(questionId, userId, categoryId, answerId, request.getQuestionContent(), request.getExplanation());
         questionRepository.registerQuestion(question);
 
         choiceService.registerChoice(request.getChoicesData(), questionId);
