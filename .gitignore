@@ -4,3 +4,5 @@
 
 # 無視するフォルダの設定
 target/
+
+src/main/resources/serviceAccountKey.json
