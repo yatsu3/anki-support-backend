@@ -38,7 +38,7 @@ public class QuestionController {
     }
 
     @GetMapping("/questions/{questionId}")
-    public ResponseEntity<QuestionResponse> getQuestionInfo(@RequestHeader("uuid") String uuid, @PathVariable int questionId) {
+    public ResponseEntity<QuestionResponse> getQuestionInfo(@RequestParam("uuid") String uuid, @PathVariable int questionId) {
         QuestionResponse response = questionService.getQuestionById(questionId, uuid);
         return ResponseEntity.ok(response);
     }
