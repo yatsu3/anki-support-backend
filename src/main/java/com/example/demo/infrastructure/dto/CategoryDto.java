@@ -4,12 +4,10 @@ import lombok.Data;
 public class CategoryDto {
     private int categoryId;
     private String categoryName;
-    private int questionCount;
 
-    public CategoryDto(int categoryId, String categoryName, int questionCount) {
+    public CategoryDto(int categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
-        this.questionCount = questionCount;
     }
 
     public int getCategoryId() {

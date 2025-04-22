@@ -22,6 +22,7 @@ public class CategoryController {
 
     @GetMapping("/get-category")
     public List<CategoryDto> getCategory(@RequestParam String uuid) {
+        System.out.println("Spring Cloud Gateway経由でバックエンド呼ぶ!!!!");
         return service.getCategory(uuid);
     }
 }
