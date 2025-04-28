@@ -3,6 +3,8 @@ package com.example.demo.settings;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,9 +17,15 @@ public class FirebaseConfig {
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
         System.out.println("----initialize----");
+        String firebaseConfig = System.getenv("FIREBASE_CONFIG"); // 環境変数から取得
+        if (firebaseConfig == null) {
+            throw new IllegalStateException("FIREBASE_CONFIG environment variable is not set");
+        }
         // サービスアカウントキーのファイルを読み込む
-        FileInputStream serviceAccount =
-            new FileInputStream("src/main/resources/serviceAccountKey.json");
+        // FileInputStream serviceAccount =
+        //     new FileInputStream("src/main/resources/serviceAccountKey.json");
+
+        ByteArrayInputStream serviceAccount = new ByteArrayInputStream(firebaseConfig.getBytes(StandardCharsets.UTF_8));
 
         // Firebase オプションの設定
         FirebaseOptions options = FirebaseOptions.builder()
