@@ -44,7 +44,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://anki-support-frontend.pages.dev")); // フロントエンドのオリジンを許可
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 許可するHTTPメソッド
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); // 許可するヘッダー
+        configuration.setAllowedHeaders(List.of("*")); // 許可するヘッダー
         configuration.setAllowCredentials(true); // 認証情報を許可
         configuration.setMaxAge(3600L); // プリフライトリクエストのキャッシュ時間（秒）
 
