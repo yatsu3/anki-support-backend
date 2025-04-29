@@ -28,11 +28,10 @@ public class SecurityConfig {
         System.out.println("----securityFilterChain----");
         http.csrf(AbstractHttpConfigurer::disable)
         .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CSRF対策を無効化（APIの場合は一般的）
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/**").authenticated() // このエンドポイントは認証が必要
-                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
-                .anyRequest().permitAll() // その他のリクエストは全て許可
-            )
+        .authorizeHttpRequests(auth -> auth
+        .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll() // 先にOPTIONSを許可
+        .requestMatchers("/**").authenticated() // その後、他のリクエストに認証を要求
+    )
             .addFilterBefore(firebaseTokenFilter, UsernamePasswordAuthenticationFilter.class); // 認証フィルターを追加
 
         return http.build();
@@ -44,7 +43,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://anki-support-frontend.pages.dev")); // フロントエンドのオリジンを許可
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 許可するHTTPメソッド
-        configuration.setAllowedHeaders(List.of("*")); // 許可するヘッダー
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); // 許可するヘッダー
         configuration.setAllowCredentials(true); // 認証情報を許可
         configuration.setMaxAge(3600L); // プリフライトリクエストのキャッシュ時間（秒）
 
