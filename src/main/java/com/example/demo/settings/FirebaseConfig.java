@@ -18,6 +18,9 @@ public class FirebaseConfig {
     public FirebaseApp initializeFirebase() throws IOException {
         System.out.println("----initialize----");
         String firebaseConfig = System.getenv("FIREBASE_CONFIG"); // 環境変数から取得
+        // System.out.println("firebasecongfg" + firebaseConfig);
+        // String fixedJson = firebaseConfig.replace("\\n", "\n");
+        // System.out.println("fixedJson" + fixedJson);
         if (firebaseConfig == null) {
             throw new IllegalStateException("FIREBASE_CONFIG environment variable is not set");
         }
